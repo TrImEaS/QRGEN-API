@@ -1,11 +1,11 @@
-import validateBillingData from '../Schemas/billingData.js'
 import { validatePartialBillingData } from '../Schemas/billingData.js'
 import { BillingDataModel } from '../Models/billingData.js'
 import { createQR, createCode } from '../createQrCode.js'
-import path from 'path'
-import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import validateBillingData from '../Schemas/billingData.js'
+import path from 'path'
+import fs from 'fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

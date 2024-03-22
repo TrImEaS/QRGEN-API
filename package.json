@@ -13,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.11.0",
+    "@prisma/client": "5.10.2",
+    "@libsql/client": "0.4.3",
+    "@npmcli/move-file": "^3.0.0",
+    "@prisma/adapter-libsql": "^5.10.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -21,10 +24,11 @@
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
     "qrcode": "^1.5.3",
+    "sqlite3": "^5.1.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "prisma": "^5.11.0",
+    "prisma": "5.10.2",
     "standard": "^17.1.0"
   },
   "eslintConfig": {
