@@ -3,7 +3,7 @@ const cors = require ('cors')
 const path = require ('path')
 const bodyParser = require ('body-parser')
 const billingDataRouter = require ('./src/Routes/billingData.js')
-const { UserModel } = require ('./src/Models/users.js')
+// const UserModel = require ('./src/Models/users.js')
 
 const PORT = process.env.PORT || 8080
 
@@ -36,17 +36,17 @@ app.use('/login', (req, res) =>{
 })
 
 
-app.post('/auth', async (req, res) => {
-  const { user, password } = req.body;
-  const result = await UserModel.getUser({ user, password })
+// app.post('/auth', async (req, res) => {
+//   const { user, password } = req.body;
+//   const result = await UserModel.getUser({ user, password })
 
-  if (result) {
-    res.status(200).json({ success: true })
-  } 
-  else {
-    res.status(404).json({ success: false })
-  }
-})
+//   if (result) {
+//     res.status(200).json({ success: true })
+//   } 
+//   else {
+//     res.status(404).json({ success: false })
+//   }
+// })
 
 app.use('/billingData', billingDataRouter)
 

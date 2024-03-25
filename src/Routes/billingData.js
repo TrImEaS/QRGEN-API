@@ -3,6 +3,13 @@ const  BillingDataController  = require ('../Controllers/billingData.js')
 
 const billingDataRouter = Router()
 
+billingDataRouter.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Permitir acceso desde cualquier origen
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH'); // Métodos HTTP permitidos
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Encabezados permitidos
+  next()
+})
+
 billingDataRouter.get('/', BillingDataController.getAll)
 billingDataRouter.post('/', BillingDataController.create)
 
