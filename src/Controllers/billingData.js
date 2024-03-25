@@ -121,25 +121,25 @@ class BillingDataController {
         return res.status(422).json({ error: JSON.parse(result.error.message) })
       }
 
-      const existingData = await BillingDataModel.create({ input: inputData })
+      // const existingData = await BillingDataModel.create({ input: inputData })
       
-      if (!existingData) {
-        // Eliminar archivos generados si ya existen datos previos
-        const filePathQR = path.join(__dirname, `../../Files/QRs/${htmlQRName}`);
-        const filePathHTML = path.join(__dirname, `../../Files/Codes/${data.htmlName}`);
+      // if (!existingData) {
+      //   // Eliminar archivos generados si ya existen datos previos
+      //   const filePathQR = path.join(__dirname, `../../Files/QRs/${htmlQRName}`);
+      //   const filePathHTML = path.join(__dirname, `../../Files/Codes/${data.htmlName}`);
         
-        if (fs.existsSync(filePathQR)) {
-          fs.unlinkSync(filePathQR);
-          console.log('QR borrado')
-        }
+      //   if (fs.existsSync(filePathQR)) {
+      //     fs.unlinkSync(filePathQR);
+      //     console.log('QR borrado')
+      //   }
 
-        if (fs.existsSync(filePathHTML)) {
-          fs.unlinkSync(filePathHTML)
-          console.log('HTMLCode borrado')
-        }
+      //   if (fs.existsSync(filePathHTML)) {
+      //     fs.unlinkSync(filePathHTML)
+      //     console.log('HTMLCode borrado')
+      //   }
 
-        return res.status(409).json({ error: 'El numero de factura ya esta en uso para este cliente' })
-      }
+      //   return res.status(409).json({ error: 'El numero de factura ya esta en uso para este cliente' })
+      // }
 
       const filePath = path.join(__dirname, `../../Files/QRs/${htmlQRName}`)
       res.sendFile(filePath)
