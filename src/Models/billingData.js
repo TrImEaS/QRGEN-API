@@ -1,131 +1,112 @@
-import { PrismaClient } from "@prisma/client"
+const { Sequelize, DataTypes } = require('sequelize')
+const mysql = require('mysql2')
 
-const prisma = new PrismaClient()
+const sequelize = new Sequelize('QRGEN', 'Thomas2024az', 'Az2024Thomas', {
+  dialect: 'mysql',
+  host: 'localhost',
+  port: 3306,
+})
 
-export class BillingDataModel {
+const BillingData = sequelize.define('BillingData', {
+  company: {
+    type: DataTypes.ENUM('technologyline', 'linetechnology', 'tline', 'realcolor', 'power'),
+    allowNull: false
+  },
+  client: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  numberBill: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  createDate: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  verificationNumber: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  link: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  user: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+})
 
- // Get all concepts but if param exist return only this data
-  static async getAll ({ company, client, numberBill, user }) {
-
-    if(company){
-      const data = await prisma.billingdata.findMany({
-        where: {
-          company: {
-            equals: company.toLowerCase(),
-          }
-        }
-      })
-      return data
-    }
-
-    if(client){
-      const data = await prisma.billingdata.findMany({
-        where: {
-          client: {
-            equals: parseInt(client),
-          }
-        }
-      })
-      return data
-    }
-
-    if(numberBill){
-      const data = await prisma.billingdata.findMany({
-        where: {
-          numberBill: {
-            equals: parseInt(numberBill),
-          }
-        }
-      })
-      return data
-    }
-    if(user){
-      const data = await prisma.billingdata.findMany({
-        where: {
-          user: {
-            equals: user.toLowerCase(),
-          }
-        }
-      })
-      return data
-    }
+class BillingDataModel {
+  static async getAll({ company, client, numberBill, user }) {
+    if (company) {
+      return await BillingData.findAll({ where: { company: company.toLowerCase() } })
+    } 
     
-    const data = await prisma.billingdata.findMany()
+    if (client) {
+      return await BillingData.findAll({ where: { client: parseInt(client) } })
+    } 
     
-    return data;
+    if (numberBill) {
+      return await BillingData.findAll({ where: { numberBill: parseInt(numberBill) } })
+    } 
+    
+    if (user) {
+      return await BillingData.findAll({ where: { user: user.toLowerCase() } })
+    }
+
+    return await BillingData.findAll({ attributes: ['id', 'company', 'client', 'numberBill', 'createDate', 'checkDate', 'verificationNumber', 'link', 'user'] })
   }
 
-
-  
-  //Get by date
   static async getCreateDateByDate(date) {
-    const data = await prisma.billingdata.findMany({
+    const data = await BillingData.findAll({
       where: {
-        createDate: {
-          startsWith: date,
-        },
-      },
-    })
-    return data;
-  }
-
-  //Get by time
-  static async getCreateDateByTime(time) {
-    const data = await prisma.billingdata.findMany({
-      where: {
-        createDate: {
-          contains: time,
-        },
-      },
-    })
-    return data;
-  }
-
-  //Get by date
-  static async getCheckDateByDate(date) {
-    const data = await prisma.billingdata.findMany({
-      where: {
-        checkDate: {
-          startsWith: date,
-        },
-      },
-    })
-    return data;
-  }
-
-  //Get by time
-  static async getCheckDateByTime(time) {
-    const data = await prisma.billingdata.findMany({
-      where: {
-        checkDate: {
-          contains: time,
-        },
-      },
-    })
-    return data;
-  }
-
-  // Get an concept by id
-  static async getById (id) {
-    const data = await prisma.billingdata.findUnique({
-      where: {
-        id: id
-      },
+        createDate: { [Sequelize.Op.startsWith]: date }
+      }
     })
     return data
   }
 
-  // Create billing data
-  static async create ({ input }) {
-    if (!input) {
-      throw new Error('Input is undefined');
-    }
-  
+  static async getCreateDateByTime(time) {
+    const data = await BillingData.findAll({
+      where: {
+        createDate: { [Sequelize.Op.like]: `%${time}%` }
+      }
+    })
+    return data
+  }
+
+  static async getCheckDateByDate(date) {
+    const data = await BillingData.findAll({
+      where: {
+        checkDate: { [Sequelize.Op.startsWith]: date }
+      }
+    })
+    return data
+  }
+
+  static async getCheckDateByTime(time) {
+    const data = await BillingData.findAll({
+      where: {
+        checkDate: { [Sequelize.Op.like]: `%${time}%` }
+      }
+    })
+    return data
+  }
+
+  static async getById(id) {
+    const data = await BillingData.findByPk(id)
+    return data
+  }
+
+  ////////////////////////////////////////////////
+  static async create({ input }) {
     try {
-      const existingData = await prisma.billingdata.findFirst({
+      const existingData = await BillingData.findOne({
         where: {
-          client: input.client,
-          numberBill: input.numberBill
+          client: parseInt(input.client),
+          numberBill: parseInt(input.numberBill)
         }
       })
 
@@ -133,30 +114,36 @@ export class BillingDataModel {
         return false
       }
 
-      const newBillingData = await prisma.billingdata.create({ data: {...input} })
-      console.log('New billing data created:', newBillingData)
-      return newBillingData
+      const newData = await BillingData.create(input)
+      console.log('New billing data created:', newData.id)
+      return newData
     } catch (error) {
       console.error('Error creating billing data:', error)
       throw error
     }
   }
 
-  // Edit an employee with the id
-  static async update ({ id, input }) {
-    const updatedBillingData = await prisma.billingdata.update({
-      where: { id: parseInt(id) },
-      data: input
-    })
+  static async update({ id, input }) {
+    try {
+      const [updatedRows] = await BillingData.update(input, {
+        where: { id: id }
+      })
 
-    return updatedBillingData
+      return updatedRows > 0
+    } catch (error) {
+      console.error('Error updating billing data:', error)
+      throw error
+    }
   }
-
-  // static async delete ({ id }) {
-  //   const result = await prisma.billingdata.delete({
-  //     where:{ id: id}
-  //   })
-    
-  //   return result
-  // }
 }
+
+(async () => {
+  try {
+    await sequelize.authenticate()
+    console.log('Connection to database has been established successfully.')
+  } catch (error) {
+    console.error('Unable to connect to the database:', error)
+  }
+})()
+
+module.exports = BillingDataModel

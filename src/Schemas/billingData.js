@@ -1,4 +1,4 @@
-import z from 'zod'
+const z = require ('zod')
 
 const billingDataSchema = z.object({
   company: z.enum(['technologyline', 'linetechnology', 'tline', 'realcolor', 'power']),
@@ -25,19 +25,12 @@ const billingDataSchema = z.object({
   })
 })
 
-export default function validateBillingData(object) {
+function validateBillingData(object) {
   return billingDataSchema.safeParse(object)
 }
 
-export function validatePartialBillingData(input) {
+function validatePartialBillingData(input) {
   return billingDataSchema.partial().safeParse(input)
 }
 
-// id                  Int       @id @default(autoincrement())
-// company             String
-// client              Int
-// numberBill          Int
-// createDate          DateTime
-// checkDate           DateTime
-// verificationNumber  Int
-// link                String
+module.exports = { validateBillingData, validatePartialBillingData }

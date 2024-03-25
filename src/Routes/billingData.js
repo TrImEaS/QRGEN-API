@@ -1,7 +1,7 @@
-import { Router } from 'express'
-import { BillingDataController } from '../Controllers/billingData.js'
+const { Router } = require ('express')
+const  BillingDataController  = require ('../Controllers/billingData.js')
 
-export const billingDataRouter = Router()
+const billingDataRouter = Router()
 
 billingDataRouter.get('/', BillingDataController.getAll)
 billingDataRouter.post('/', BillingDataController.create)
@@ -15,6 +15,5 @@ billingDataRouter.get('/checkDate/byTime/:time', BillingDataController.getCheckD
 
 billingDataRouter.patch('/:id', BillingDataController.update)
 
-
-
+module.exports = billingDataRouter
 // billingDataRouter.delete('/:id', BillingDataController.delete)

@@ -1,31 +1,39 @@
-import { validatePartialBillingData } from '../Schemas/billingData.js'
-import { BillingDataModel } from '../Models/billingData.js'
-import { createQR, createCode } from '../createQrCode.js'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-import validateBillingData from '../Schemas/billingData.js'
-import path from 'path'
-import fs from 'fs'
+const { validatePartialBillingData, validateBillingData } = require ('../Schemas/billingData.js')
+const BillingDataModel = require ('../Models/billingData.js')
+const { createQR, createCode } = require ('../createQrCode.js')
+const { fileURLToPath } = require ('url')
+const { dirname } = require ('path')
+const path = require ('path')
+const fs = require ('fs')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-export class BillingDataController {
+class BillingDataController {
 
   // Get all billing data
   static async getAll (req, res) {
-    const { company, client, numberBill, user } = req.query
-    const data = await BillingDataModel.getAll({ company, client, numberBill, user })
-    res.json(data)
+    try {
+      const { company, client, numberBill, user } = req.query
+      const data = await BillingDataModel.getAll({ company, client, numberBill, user })
+      res.json(data)
+    }
+    catch (error) {
+      console.error('Error retrieving data by date:', error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
   }
 
   // Get billing data by id
   static async getById (req, res) {
-    let { id } = req.params
-    const data = await BillingDataModel.getById(parseInt(id))
-    if (data) return res.json(data)
-    
-    res.status(404).json({ message: 'Billing data not found' })
+    try {
+      let { id } = req.params
+      const data = await BillingDataModel.getById(parseInt(id))
+      if (data) return res.json(data)
+      
+      res.status(404).json({ message: 'Billing data not found' })
+    } 
+    catch (error) {
+      console.error('Error retrieving data by date:', error)
+      res.status(500).json({ error: 'Internal server error' })
+    }
   }
 
   // Get billing data create date by date
@@ -106,6 +114,7 @@ export class BillingDataController {
         verificationNumber: code, 
         link: codeNameLink 
       }
+      console.log(inputData)
       const result = validateBillingData(inputData)
   
       if (result.error){
@@ -163,24 +172,6 @@ export class BillingDataController {
       return res.status(500).json({ error: "Internal server error" });
     }
   }
-
-  // Esto no borra, sino que pone en estado de desactivado...
-  // static async delete (req, res) {
-  //   const { id } = req.params
-
-  //   try {
-  //     const result = await BillingDataModel.delete({ id: parseInt(id) })
-  
-  //     if (!result) {
-  //       return res.status(404).json({ error: 'Billing data not found'})
-  //     }
-  
-  //     return res.json(result)
-  //   } 
-  //   catch (e) {
-  //     console.log('Error deleting billing data: ', e)
-
-  //     return res.status(500).json({ error: "Internal server error" });
-  //   }
-  // }
 }
+
+module.exports = BillingDataController;

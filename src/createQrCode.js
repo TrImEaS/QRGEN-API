@@ -1,9 +1,9 @@
-import fs from 'fs'
-import qrcode from 'qrcode'
-import crypto from 'crypto'
+const fs = require ('fs')
+const qrcode = require ('qrcode')
+const crypto = require ('crypto')
 
-export async function createCode () {
-  const randomCode = crypto.randomInt(1000000)
+async function createCode () {
+  const randomCode = parseInt(getRandomInt())
   const secureRandom = crypto.randomBytes(16).toString('hex')
 
   const htmlCodeName = `${secureRandom}.html`
@@ -39,7 +39,7 @@ export async function createCode () {
 
 
 
-export async function createQR(htmlName, { user, billingNumber, company }) {
+async function createQR(htmlName, { user, billingNumber, company }) {
   const htmlQRName = `${user}-${billingNumber}-${company}.html`
   
   try {
@@ -73,3 +73,25 @@ export async function createQR(htmlName, { user, billingNumber, company }) {
   }
 }
 
+function getRandomInt() {
+  try {
+    const min = 100000; // Mínimo valor de un número de 6 dígitos
+    const max = 999999; // Máximo valor de un número de 6 dígitos
+    const generatedNumbers = new Set(); // Conjunto para almacenar números generados
+
+    while (true) {
+      const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      // Verificar si el número ya fue generado previamente
+      if (!generatedNumbers.has(randomInt)) {
+        generatedNumbers.add(randomInt); // Agregar el número al conjunto de números generados
+        return randomInt; // Devolver el número único
+      }
+    }
+  } catch (error) {
+    console.error('Error al generar número aleatorio único:', error);
+    throw error;
+  }
+}
+
+module.exports = { createCode, createQR };
