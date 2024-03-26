@@ -44,21 +44,29 @@ app.options('/billingData', (req, res) => {
 
 // Endpoint para recibir el archivo HTML y guardarlo en la ruta deseada
 app.post('/saveHtml', (req, res) => {
-  const htmlContent = req.body.htmlContent; // El contenido del archivo HTML recibido desde el cliente
-  const savePath = path.join(__dirname, './') // Ruta donde deseas guardar el archivo
+  const htmlContent = req.body.htmlContent // El contenido del archivo HTML recibido desde el cliente
+  const fileName = req.body.fileName // Nombre del archivo HTML recibido desde el cliente
+  const saveFolderPath = path.join(__dirname, './Files/') // Ruta de la carpeta de destino
+  
+  // Verificar si la carpeta de destino existe
+  if (!fs.existsSync(saveFolderPath)) {
+    fs.mkdirSync(saveFolderPath, { recursive: true })
+  }
 
-  // Guardar el archivo HTML en la ruta especificada
+  // Ruta completa del archivo a guardar
+  const savePath = path.join(saveFolderPath, fileName)
+
+  // Escribir el archivo HTML en la ruta especificada
   fs.writeFile(savePath, htmlContent, (err) => {
     if (err) {
       console.error('Error al guardar el archivo HTML:', err)
       res.status(500).json({ message: 'Error al guardar el archivo HTML' })
     } else {
-      console.log('Archivo HTML guardado correctamente.')
+      console.log('Archivo HTML guardado correctamente en:', savePath)
       res.status(200).json({ message: 'Archivo HTML guardado correctamente' })
     }
   })
 })
-
 // app.use('/billingData', billingDataRouter)
 
 app.listen(PORT, () => console.log(`Server listening on port http://localhost:${PORT}`))
@@ -81,7 +89,7 @@ app.listen(PORT, () => console.log(`Server listening on port http://localhost:${
 
 
 // app.post('/auth', async (req, res) => {
-//   const { user, password } = req.body;
+//   const { user, password } = req.body
 //   const result = await UserModel.getUser({ user, password })
 
 //   if (result) {
