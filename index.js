@@ -46,8 +46,9 @@ app.options('/billingData', (req, res) => {
 app.post('/saveHtml', (req, res) => {
   const htmlContent = req.body.htmlContent // El contenido del archivo HTML recibido desde el cliente
   const fileName = req.body.fileName // Nombre del archivo HTML recibido desde el cliente
-  const saveFolderPath = path.join(__dirname, './') // Ruta de la carpeta de destino
-  
+  const saveFolderPath = path.join(__dirname, './Files') // Ruta de la carpeta de destino
+  console.log(__dirname)
+  console.log(htmlContent + fileName)
   // Verificar si la carpeta de destino existe
   if (!fs.existsSync(saveFolderPath)) {
     fs.mkdirSync(saveFolderPath, { recursive: true })
@@ -60,7 +61,7 @@ app.post('/saveHtml', (req, res) => {
   fs.writeFile(savePath, htmlContent, (err) => {
     if (err) {
       console.error('Error al guardar el archivo HTML:', err)
-      res.status(500).json({ message: 'Error al guardar el archivo HTML' })
+      res.status(500).json({ message: `Error al guardar el archivo HTML ${htmlContent} + ${fileName} + ${__dirname}` })
     } else {
       console.log('Archivo HTML guardado correctamente en:', savePath)
       res.status(200).json({ message: 'Archivo HTML guardado correctamente' })
