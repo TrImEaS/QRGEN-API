@@ -1,7 +1,7 @@
 const express = require ('express')
 const path = require ('path')
 const bodyParser = require ('body-parser')
-const billingDataRouter = require ('./src/Routes/billingData.js')
+// const billingDataRouter = require ('./src/Routes/billingData.js')
 
 const PORT = process.env.PORT || 8080
 
@@ -41,7 +41,24 @@ app.options('/billingData', (req, res) => {
   res.send(200)
 })
 
-app.use('/billingData', billingDataRouter)
+// Endpoint para recibir el archivo HTML y guardarlo en la ruta deseada
+app.post('/saveHtml', (req, res) => {
+  const htmlContent = req.body.htmlContent; // El contenido del archivo HTML recibido desde el cliente
+  const savePath = path.join(__dirname, 'ruta/deseada') // Ruta donde deseas guardar el archivo
+
+  // Guardar el archivo HTML en la ruta especificada
+  fs.writeFile(savePath, htmlContent, (err) => {
+    if (err) {
+      console.error('Error al guardar el archivo HTML:', err)
+      res.status(500).json({ message: 'Error al guardar el archivo HTML' })
+    } else {
+      console.log('Archivo HTML guardado correctamente.')
+      res.status(200).json({ message: 'Archivo HTML guardado correctamente' })
+    }
+  })
+})
+
+// app.use('/billingData', billingDataRouter)
 
 app.listen(PORT, () => console.log(`Server listening on port http://localhost:${PORT}`))
 
