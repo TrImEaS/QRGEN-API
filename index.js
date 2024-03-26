@@ -46,7 +46,7 @@ app.options('/billingData', (req, res) => {
 app.post('/saveHtml', (req, res) => {
   const htmlContent = req.body.htmlContent // El contenido del archivo HTML recibido desde el cliente
   const fileName = req.body.fileName // Nombre del archivo HTML recibido desde el cliente
-  const saveFolderPath = path.join(__dirname, './Files/') // Ruta de la carpeta de destino
+  const saveFolderPath = path.join(__dirname, './') // Ruta de la carpeta de destino
   
   // Verificar si la carpeta de destino existe
   if (!fs.existsSync(saveFolderPath)) {
