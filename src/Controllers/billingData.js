@@ -10,6 +10,12 @@ class BillingDataController {
 
   // Get all billing data
   static async getAll (req, res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     try {
       const { company, client, numberBill, user } = req.query
       const data = await BillingDataModel.getAll({ company, client, numberBill, user })
@@ -23,6 +29,12 @@ class BillingDataController {
 
   // Get billing data by id
   static async getById (req, res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     try {
       let { id } = req.params
       const data = await BillingDataModel.getById(parseInt(id))
@@ -38,6 +50,12 @@ class BillingDataController {
 
   // Get billing data create date by date
   static async getCreateDateByDate(req,res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     const { date } = req.params;
 
     try {
@@ -52,6 +70,12 @@ class BillingDataController {
   
   // Get billing data create date by time
   static async getCreateDateByTime(req,res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     const { time } = req.params;
 
     try {
@@ -66,6 +90,12 @@ class BillingDataController {
 
   // Get billing data create date by date
   static async getCheckDateByDate(req,res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     const { date } = req.params;
 
     try {
@@ -80,6 +110,12 @@ class BillingDataController {
   
   // Get billing data create date by time
   static async getCheckDateByTime(req,res) {
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     const { time } = req.params;
 
     try {
@@ -94,6 +130,12 @@ class BillingDataController {
 
   // Create an billing data
   static async create (req, res) { 
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     const { user, company, billingNumber } = req.body
     let codeNameLink = ''
     let code = 0
@@ -153,6 +195,12 @@ class BillingDataController {
 
   // Edit billing data by id
   static async update (req, res) { 
+    const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'https://www.technologyline.com.ar', 'https://www.line-technology.com.ar']
+    const origin = req.headers.origin
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+    }
+
     try {
       const result = validatePartialBillingData(req.body)
       
