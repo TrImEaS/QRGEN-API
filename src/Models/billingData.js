@@ -7,36 +7,36 @@ const mysql = require('mysql2')
 //   port: 3306,
 // })
 
-const BillingData = sequelize.define('BillingData', {
-  company: {
-    type: DataTypes.ENUM('technologyline', 'linetechnology', 'tline', 'realcolor', 'power'),
-    allowNull: false
-  },
-  client: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  numberBill: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  createDate: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  verificationNumber: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  link: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  user: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-})
+// const BillingData = sequelize.define('BillingData', {
+//   company: {
+//     type: DataTypes.ENUM('technologyline', 'linetechnology', 'tline', 'realcolor', 'power'),
+//     allowNull: false
+//   },
+//   client: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false
+//   },
+//   numberBill: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false
+//   },
+//   createDate: {
+//     type: DataTypes.STRING,
+//     allowNull: false
+//   },
+//   verificationNumber: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false
+//   },
+//   link: {
+//     type: DataTypes.STRING,
+//     allowNull: false
+//   },
+//   user: {
+//     type: DataTypes.STRING,
+//     allowNull: false
+//   }
+// })
 
 class BillingDataModel {
   static async getAll({ company, client, numberBill, user }) {
