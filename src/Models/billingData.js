@@ -1,11 +1,11 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const mysql = require('mysql2')
 
-const sequelize = new Sequelize('QRGEN', 'Thomas2024az', 'Az2024Thomas', {
-  dialect: 'mysql',
-  host: 'localhost',
-  port: 3306,
-})
+// const sequelize = new Sequelize('QRGEN', 'Thomas2024az', 'Az2024Thomas', {
+//   dialect: 'mysql',
+//   host: 'localhost',
+//   port: 3306,
+// })
 
 const BillingData = sequelize.define('BillingData', {
   company: {
@@ -137,13 +137,13 @@ class BillingDataModel {
   }
 }
 
-(async () => {
-  try {
-    await sequelize.authenticate()
-    console.log('Connection to database has been established successfully.')
-  } catch (error) {
-    console.error('Unable to connect to the database:', error)
-  }
-})()
+// (async () => {
+//   try {
+//     await sequelize.authenticate()
+//     console.log('Connection to database has been established successfully.')
+//   } catch (error) {
+//     console.error('Unable to connect to the database:', error)
+//   }
+// })()
 
 module.exports = BillingDataModel
