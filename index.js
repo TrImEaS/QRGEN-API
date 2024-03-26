@@ -44,7 +44,7 @@ app.options('/billingData', (req, res) => {
 // Endpoint para recibir el archivo HTML y guardarlo en la ruta deseada
 app.post('/saveHtml', (req, res) => {
   const htmlContent = req.body.htmlContent; // El contenido del archivo HTML recibido desde el cliente
-  const savePath = path.join(__dirname, 'ruta/deseada') // Ruta donde deseas guardar el archivo
+  const savePath = path.join(__dirname, './') // Ruta donde deseas guardar el archivo
 
   // Guardar el archivo HTML en la ruta especificada
   fs.writeFile(savePath, htmlContent, (err) => {
