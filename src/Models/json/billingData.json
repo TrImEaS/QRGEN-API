@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "user": "test",
+    "createDate": "2024-03-28T17:26:20",
+    "company": "technologyline",
+    "client": 24,
+    "checkDate": 0,
+    "numberBill": 444,
+    "verificationNumber": 431876,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/e42075b1d4a84c6e.html"
+  },
+  {
+    "id": 2,
+    "user": "test",
+    "createDate": "2024-03-28T17:26:20",
+    "company": "technologyline",
+    "client": 44,
+    "checkDate": 0,
+    "numberBill": 444,
+    "verificationNumber": 332297,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/5c93573cd6b04eaa.html"
+  },
+  {
+    "id": 3,
+    "user": "test",
+    "createDate": "2024-03-28T17:28:13",
+    "company": "power",
+    "client": 434,
+    "checkDate": 0,
+    "numberBill": 444,
+    "verificationNumber": 145364,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/463b982e479d44e1.html"
+  },
+  {
+    "id": 4,
+    "user": "test",
+    "createDate": "2024-03-28T17:34:09",
+    "company": "technologyline",
+    "client": 222,
+    "checkDate": 0,
+    "numberBill": 333,
+    "verificationNumber": 564116,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/58c84029f5d34989.html"
+  },
+  {
+    "id": 5,
+    "user": "test",
+    "createDate": "2024-03-28T17:44:57",
+    "company": "linetechnology",
+    "client": 333,
+    "checkDate": 0,
+    "numberBill": 222,
+    "verificationNumber": 268034,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/7811ca43023f4c19.html"
+  },
+  {
+    "id": 6,
+    "user": "test",
+    "createDate": "2024-03-28T18:18:40",
+    "company": "realcolor",
+    "client": 7878,
+    "checkDate": 0,
+    "numberBill": 8787,
+    "verificationNumber": 154698,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/79023a2bd09048da.html"
+  },
+  {
+    "id": 7,
+    "user": "test",
+    "createDate": "2024-03-28T18:18:40",
+    "company": "realcolor",
+    "client": 424,
+    "checkDate": 0,
+    "numberBill": 424,
+    "verificationNumber": 926202,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/f14e01132c9841d6.html"
+  },
+  {
+    "id": 8,
+    "user": "test",
+    "createDate": "2024-04-03T11:31:46",
+    "company": "technologyline",
+    "client": 31,
+    "checkDate": 0,
+    "numberBill": 332,
+    "verificationNumber": 799271,
+    "link": "https://technologyline.com.ar/admin/QRGen-App/api/8e30fdcf21dd4e89.html"
+  }
+]

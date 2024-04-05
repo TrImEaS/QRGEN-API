@@ -22,7 +22,12 @@ const billingDataSchema = z.object({
   user: z.string({
     required_error: 'Se requiere user',
     invalid_type_error: 'El user debe de ser de tipo string/texto'
-  })
+  }),
+
+  checkDate: z.string({
+    required_error: 'Se requiere el checkDate',
+    invalid_type_error: 'El checkDate debe de ser de tipo string/texto'
+  }),
 })
 
 function validateBillingData(object) {
