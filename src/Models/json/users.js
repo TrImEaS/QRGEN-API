@@ -4,7 +4,6 @@ const path = require('path')
 const jsonFilePath = path.resolve(__dirname, './users.json')
 
 class UsersModel {
-
   static async getAll() {
     let jsonData = await this.readJsonFile()
     return jsonData
